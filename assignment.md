@@ -21,7 +21,7 @@ Each entity has the following attributes:
 Answer:
 
 ```dbml
-Table user {
+Table User {
   id integer [primary key]
   username varchar
   email varchar
@@ -43,11 +43,11 @@ Table Follows {
   created_at timestamp
 }
 
-Ref user_posts: posts.user_id > users.id // many-to-one
+Ref user_posts: Post.user_id > User.id // many-to-one
 
-Ref: users.id < follows.following_user_id
+Ref: User.id < Follows.following_user_id
 
-Ref: users.id < follows.followed_user_id
+Ref: User.id < Follows.followed_user_id
 
 ```
 
@@ -65,7 +65,37 @@ There are 4 entities, think of what attributes each entity should have.
 Answer:
 
 ```dbml
+Table Customer {
+  id integer [primary key]
+  Customer_name varchar
+  email varchar
+  created_at timestamp
+}
 
+Table Book {
+  id integer [primary key]
+  Title varchar
+  Author varchar
+  created_at timestamp
+}
+
+Table Cart {
+  id integer [primary key]
+  customer_id integer [not null]
+  created_at timestamp
+}
+
+Table Cart_items {
+  cart_id integer [not null]
+  book_id integer [not null]
+  created_at timestamp
+}
+
+Ref shopping_cart: Cart.customer_id > Customer.id // many-to-one
+
+Ref: Cart.id < Cart_items.cart_id
+
+Ref: Book.id < Cart_items.book_id
 ```
 
 ## Submission
